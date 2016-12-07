@@ -1,0 +1,175 @@
+---
+title: Rails - Introduction
+reveal:
+  theme: solarized
+  slideNumber: true
+  progress: true
+  mouseWheel: true
+  transition: linear
+---
+
+# Rails
+
+---
+
+## Installer rails
+
+```bash
+$ gem install rails
+```
+
+---
+
+## Créer un projet rails
+
+Cette ligne de commande va générer tout les fichiers d'une application rails basique.
+```bash
+$ rails new nom_de_mon_application
+```
+
+---
+
+## Architecture
+
+L'arborescence principale d'une application rails:
+
+```
+.
+├── app/
+│   ├── assets/       <--- CSS/JS/Images/Fonts
+│   ├── controllers/  <--- Controllers
+│   ├── models/       <--- Models
+│   ├── views/        <--- HTML Views
+│   └── helpers/      <--- View Helpers
+│
+├── config/
+│   ├── routes.rb     <--- Toutes les routes
+│   └── database.yml  <--- Config de la BDD
+│
+```
+```
+├── db/
+│   ├── seeds.rb      <--- Données de bases
+│   └── migrate/      <--- Schéma de la BDD
+│
+├── lib/           <--- Librairies perso
+├── vendor/        <--- Librairies externes
+│
+└── Gemfile           <--- Liste de dépendances
+```
+
+--
+
+## Le respect des conventions
+
+--
+
+### Conventions pour les controleurs
+
+* \- Les classes de controleurs se suffixent de "Controller" (ex: `UsersController`)
+* \- Les fichiers de controleurs se trouvent dans `app/controllers`
+* \- Les noms fichiers de controleurs sont en snake_case (ex: `users_controller.rb`)
+
+--
+
+### Conventions pour les modèles
+
+* \- Les classes de modèles portent le nom de la table au singulier en camel case (ex: `user_answers` -> `UserAnswer`)
+* \- Les fichiers de modèles se trouvent dans `app/models`
+* \- Les noms fichiers de modèles sont en snake_case (ex: `user_answer.rb`)
+
+--
+
+### Convention pour les vues
+
+* \- Les vues se trouvent dans un dossier par type de controleur et un fichier par action du controleur
+* Exemple:
+  * \- Pour un controleur `UsersController`, les views correspondantes seront dans `app/views/users`.
+  * \- Pour une action `index` dans le controleur `UsersController`, le fichier de view doit se nommer `index.html.erb`
+
+
+---
+
+## Générer une application CRUD
+
+```
+$ rails generate scaffold ModelName attribute:type attribute:type ...
+```
+
+Example:
+```
+$ rails generate scaffold Restaurant name:string address:string rating:integer
+```
+
+---
+
+## Lancer une application rails
+
+```
+$ cd chemin/vers/mon/application
+$ rails server
+```
+
+Ensuite on peut voir l'application rails sur http://localhost:3000 (par défaut)
+
+---
+
+## Afficher une liste des routes disponibles
+
+```
+$ rake routes
+```
+
+---
+
+# Gemfile
+
+Tout les projets Ruby/Rails utilisent un fichier `Gemfile` permettant de gérer les dépendances.
+
+--
+
+# Structure
+
+```ruby
+# OBLIGATOIRE
+source 'https://rubygems.org'
+ruby '2.2.3'
+
+# Les gems essentielles pour rails
+gem 'rails', '4.2.4'
+gem 'sass-rails'
+gem 'jquery-rails'
+
+# Vos gems
+gem 'bootstrap-sass'
+gem 'font-awesome-sass'
+gem 'soundcloud'
+```
+
+```ruby
+# ...
+
+# Les gems qu'on ne veut pas en production
+group :development, :test do
+  gem 'binding_of_caller'
+  gem 'better_errors'
+end
+```
+
+--
+
+## Installer les gems
+
+Cette commande va fetch toutes les gems dans le gemfile et les installer localement (pour ce projet uniquement).
+
+```bash
+$ bundle install
+```
+
+--
+
+## Updater les gems installées
+
+```bash
+$ bundle update
+```

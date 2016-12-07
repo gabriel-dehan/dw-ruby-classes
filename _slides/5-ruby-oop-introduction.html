@@ -1,0 +1,170 @@
+---
+title: Jour 2 - Introduction à l'objet
+reveal:
+  theme: solarized
+  slideNumber: true
+  progress: true
+  mouseWheel: true
+  transition: linear
+---
+
+# Introduction à l'Orienté Objet
+
+---
+
+L'orienté objet est une façon avancée **d'organiser son code**. C'est une **convention** et un **set d'outil** (la syntaxe de Ruby) permettant d'architecturer des projets complexes plus aisément.
+
+--
+
+## Objet = Données + Comportement
+
+(Comportement == Opérations == Méthodes)
+
+--
+
+* \- Un *objet* est une **structure** contenant de la *donnée* de n'importe quel type (des **variables**) et des *comportements* ou *opérations* (des **méthodes**) permettant d'intéragir avec cette donnée.
+
+* \- On intéragi avec les données d'un objet au travers de ses **méthodes**. C'est ce qu'on appelle son **Interface**.
+
+--
+
+* \- Si vous avez fait du C, vous pouvez imaginer une `Struct` qui contiendrait aussi des pointeurs de fonctions.
+
+--
+
+### Exemple
+
+```ruby
+name = String.new("John Lennon")  # (same as) name = "John Lennon"
+name.split # => [ "John", "Lennon" ]
+```
+
+* \- Ici, la donnée est une **liste de caractères**.
+* \- Le comportement (ou opérations) sont les méthodes qui permettent d'**agir sur cette liste de caractères**.
+
+---
+
+## Classe VS Objet
+
+--
+
+* \- Une **classe** en OOP est un code générique, un "plan" permettant de générer des **objets** (aussi appelés **instances**).
+
+--
+
+* \- Métaphore (1) : Classe = **plan d'architecte** pour une maison, et les Objets = **maisons construites à partir du plan**.
+
+* \- Métaphore (2) : Classe =  **moule à gâteaux**, et les Objets = **les gâteaux**. 
+* Ils peuvent avoir des goûts et des couleurs différentes, mais ils partagent des propriétés similaires (leur forme, leur type, les actions que l'on peut faire avec...)
+
+---
+
+## Syntaxe
+
+--
+
+### Définir une classe
+
+```ruby
+# Ruby
+class User
+  def initialize(arguments)
+    # Do some initialization
+  end
+end
+```
+
+--
+
+### Variables d'instances
+
+Les variables d'instances permettent de **stocker la donnée**.
+On utilise `@` suivi du nom de la variable.
+```ruby
+# Ruby
+class User
+
+  def initialize(first_name, last_name, age)
+    @first_name  = first_name
+    @last_name   = last_name
+    @age   = age
+    @admin = false
+  end
+end
+```
+
+--
+
+### Créer une nouvelle instance
+
+* \- Une fois le "*moule*" créé, il convient de faire des gâteaux (instances) !
+
+* \- On utilise pour cela la méthode `.new`.
+
+--
+
+`MaClass.new` appelle la méthode `initialize`, lui passe les arguments et retourne une nouvelle **instance** de la classe après initialization.
+
+```ruby
+# Ruby
+class User
+  # ...
+end
+
+user = User.new("Gabriel", "Dehan", 25)
+p user
+#=> #<User:0x007f84b72a5d30 @first_name="Gabriel", @last_name="Dehan", @age=24, @admin=false>
+```
+
+--
+
+### Méthodes d'instances
+
+Les méthodes d'instances permettent **d'agir sur des variables d'instances** ou de retourner leurs valeurs:
+
+```ruby
+class User
+  # initialize code...
+  def full_name
+    @first_name + " " + @last_name
+  end
+
+  def happy_birthday!
+    @age += 1
+  end
+
+  def to_s
+    "Hello, my name is #{full_name} and I am #{@age}."
+  end
+end
+```
+--
+
+```ruby
+user = User.new("Gabriel", "Dehan", 25)
+
+user.full_name       # => "Gabriel Dehan"
+user.happy_birthday! # => 26
+user.to_s  # => "Hello, my name is Gabriel Dehan and I am 26."
+```
+
+---
+
+## Rappel des classes existantes
+
+```ruby
+"Roger".class      #=> String
+13.class           #=> Fixnum or Integer
+3.15.class         #=> Float
+true.class         #=> TrueClass
+false.class        #=> FalseClass
+(1..1000).class    #=> Range
+["Roger", 13, 3.15].class       #=> Array
+{ nom: "Roger", age: 30 }.class #=> Hash
+```
+
+La plupart de ces syntaxes sont des raccourcis:
+```ruby
+Array.new("Roger", 13, 3.15) == ["Roger", 13, 3.15]
+String.new("Roger") == "Roger"
+```

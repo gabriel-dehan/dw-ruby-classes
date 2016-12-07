@@ -1,0 +1,793 @@
+---
+title: Jour 2 - Ruby avancé
+reveal:
+  theme: solarized
+  slideNumber: true
+  progress: true
+  mouseWheel: true
+  transition: linear
+---
+
+# Ruby avancé
+
+---
+
+## Structures conditionnelles
+
+--
+
+### If
+
+```ruby
+# ✓ Ruby ✓
+if ma_condition
+  # Code à exécuter lorsque ma_condition est vraie
+end
+```
+
+```C
+// C
+if (ma_condition) {
+  // Code à exécuter lorsque ma_condition est vraie
+}
+```
+
+--
+
+### Elsif & Else
+
+Attention en Ruby **`else if`** n'existe pas ! On utilise **`elsif`**
+
+```ruby
+# ✓ Ruby ✓
+if age > 70
+  puts "You are old !"
+elsif age >= 18
+  puts "You are a grown up !"
+else
+  puts "Hey kiddo !"
+end
+```
+
+```C
+// C
+if (age > 70) {
+  printf("You are old !");
+} else if (age >= 18) {
+  printf("You are a grown up !");
+} else {
+  printf("Hey kiddo !");
+}
+```
+
+--
+
+### Conditions (2)
+
+En Ruby *TOUT EST VRAI* sauf `nil` et `false`
+
+```ruby
+if 0
+  puts true
+else
+  puts false
+end
+#=> true
+```
+
+```ruby
+if "hello"
+  puts true
+else
+  puts false
+end
+#=> true
+```
+
+```ruby
+if nil
+  puts true
+else
+  puts false
+end
+#=> false
+```
+
+--
+
+### Opérateurs de comparaisons
+
+```ruby
+5 < 6  # => true
+5 > 6  # => false
+8 >= 7 # => true
+8 <= 7 # => false
+
+5 == 5 # => true
+5 != 5 # => false
+
+!true  # => false
+!0     # => false
+!1     # => false
+
+not true  # => false
+not false # => true
+```
+
+--
+
+### Opérateurs logiques
+
+```ruby
+# AND
+if age > 18 && age < 25
+  # ...
+end
+
+# AND
+if age > 18 and age < 25
+  # ...
+end 
+
+# OR
+if age > 18 || age < 5
+  # ...
+end 
+
+# OR
+if age > 18 or age < 25 
+  # ...
+end
+```
+
+--
+
+### Unless
+
+En ruby, un **`if`** avec une condition négative, peut-être remplacé par **`unless`** (*à moins que*)
+```ruby
+if !(age > 18) 
+  puts "You are still a minor !"
+end
+
+unless age > 18
+  puts "You are still a minor !"
+end
+```
+Ne jamais utiliser **`unless`** avec un **`else`** car cela rend la compréhension difficile !
+Préférez **`if`** dans ce cas.
+
+--
+
+## Conditions ternaires
+
+```ruby
+age = 21
+is_adult = age > 18 ? true : false
+is_adult # => true
+```
+
+```ruby
+# Bit more real-worldish
+user = App.is_user_logged_in ? App.get_current_user : nil
+```
+
+--
+
+### Remarques générales
+
+\- Pas de **`()`**
+
+\- Pas de **`{}`**
+
+```ruby
+# /!\ PAS DU RUBY DU TOUT /!\
+if (a < 5) {
+  puts "a est supérieur à 5"
+}
+
+# ✓ RUBY CORRECT ✓
+if a < 5
+  puts "a est supérieur à 5"
+end
+```
+
+---
+
+## Boucles
+
+--
+
+### Boucles - While
+
+```ruby
+# Ruby
+i = 0;
+while i < 10 do
+  print i
+  i += 1 # l'opérateur d'incrémentation ++ n'existe pas en Ruby !
+end
+# => 0123456789
+```
+
+```php
+// PHP
+$i = 0;
+while ($i < 10) {
+  echo $i;
+  $i++; // l'opérateur d'incrémentation ++ n'existe pas en Ruby !
+}
+// => 0123456789
+```
+--
+
+### Boucles - Until
+
+L'inverse d'un `while`
+
+- `while` == tant que la condition est vraie
+- `until` == jusqu'à ce que la condition soit vraie
+
+```ruby
+# Ruby
+i = 0;
+until i >= 10 do # Jusqu'à ce que i soit supérieur ou égal à 10
+  print i
+  i += 1
+end
+# => 0123456789
+```
+
+--
+
+### Boucles - Do...While
+
+Exécute les instructions *au moins une fois*
+```ruby
+# Ruby
+i = 0
+begin
+  print i
+end while i > 0
+# 0
+```
+
+```PHP
+// PHP
+$i = 0;
+do {
+  echo $i;
+} while ($i > 0);
+// 0
+```
+
+--
+
+### Boucles - For
+```ruby
+# Ruby
+for i in 0..9
+  print i
+end
+# => 0123456789
+```
+
+```PHP
+// PHP
+for ($i = 0; $i < 10; $i++) {
+  echo $i;
+}
+// => 0123456789
+```
+--
+
+### Remarques générales
+
+- Toujours pas de **`;`**
+- Les **`()`** sont facultatives
+- Encore pas de **`{}`** mais des **`do`** et **`end`** et des retours à la ligne
+
+---
+
+## Types de données complexes
+
+---
+
+## Array
+
+--
+
+### Définition
+
+- Un `Array` est une structure **ordonnée** permettant de contenir une suite de valeurs. Les valeurs peuvent être de type **mixes** (String, Integer, Array, etc...).
+- Pas de gestion de la mémoire, la taille d'un tableau est dynamique !
+
+```ruby
+empty_array = []
+
+names = ["Ruby", "Weiss", "Yang"] # Only strings
+names.count # => 3
+
+random_array = [1, true, "Ruby", [4, 5, 6]] # Mixed types
+random_array.count # => 4
+```
+
+Raccourci syntaxique pour un tableau de Strings
+
+```ruby
+%w(Ruby Weiss Yang)  #=> ["Ruby", "Weiss", "Yang"]
+```
+
+--
+
+### Lecture
+
+Récupérer (lire) une valeur d'un tableau.<br><br>
+L'**index** commence toujours à **0**.
+
+```ruby
+names   = ["Ruby", "Weiss", "Yang"] 
+# index =>   0        1       2
+
+names[0] # => "Ruby"
+names[2] # => "Yang"
+names[3] # => nil
+
+# Index can be negative, and then takes values starting at the end of the array
+names[-1] # => "Yang"
+names[-2] # => "Weiss"
+```
+
+--
+
+### Ecriture 
+
+Modifier une valeur dans un tableau:
+
+```ruby
+ages = [25, 72, 42, 38]
+
+ages[1] = 8
+
+p ages # => [25, 8, 42, 38]
+```
+
+Ajouter une valeur:
+
+```ruby
+ages = [25, 72, 42, 38]
+
+# A la fin du tableau
+ages << 44 # also `ages.push(44)`
+p ages     # => [25, 72, 42, 38, 44]
+
+# Au debut du tableau 
+ages.unshift(32)
+p ages     #=> [32, 25, 72, 42, 38, 44]
+```
+
+--
+
+### Ecriture (2)
+
+Supprimer une valeur:
+
+```ruby
+ages = [25, 72, 42, 38]
+
+# De la fin du tableau
+ages.pop
+p ages # => [25, 72, 42]
+
+# Du debut du tableau 
+ages.shift
+p ages # => [72, 42]
+
+# Une valeur précise
+ages.delete(72)
+p ages # => [42]
+
+# Un index précis
+ages.delete_at(0)
+p ages # => []
+```
+
+--
+
+### Méthodes sur les tableaux
+
+Quelques exemples:
+
+```ruby
+ages = [25, 72, 42, 38]
+ages.count  # => 4
+ages.size   # => 4
+ages.length # => 4
+
+ages + [32, 44, 48] # => [25, 72, 42, 38, 32, 44, 48]
+
+ages.sort    # => [25, 38, 42, 72]
+ages.reverse # => [38, 42, 72, 25]
+ages.empty?  # => false
+ages.any?    # => true
+```
+
+Documentation: 
+
+- http://www.ruby-doc.org/core/Array.html
+- http://www.ruby-doc.org/core/Enumerable.html
+
+---
+
+## Hash
+
+--
+
+### Définition
+
+Un **Hash**, aussi appelé **Dictionnaire** ou **Tableau associatif** dans d'autres langages est une structure **non-ordonnée** contenant des `clefs` associées à des `valeurs`.
+
+```ruby
+# Ruby
+menu = {
+  "Big Mac" => 5,
+  "Potatoes" => 2
+}
+
+menu.class #=> Hash
+menu.keys  #=> ["Big Mac", "Potatoes"]
+menu.values  #=> [5, 2]
+```
+
+--
+
+Un **Hash** est équivalent aux *objets* javascript, json, aux *tableaux associatfs* en PHP et aux *maps* en C++.
+
+```PHP
+// PHP
+$menu = array(
+  "Big Mac" => 5,
+  "Potatoes" => 2
+);
+```
+
+```javascript
+// Javascript ou JSON
+var menu = {
+  "Big Mac": 5,
+  "Potatoes": 2
+};
+```
+
+--
+
+### Lecture
+
+Récupérer une valeur depuis Hash:
+
+```ruby
+# On utilise `my_hash[key]` pour y accéder
+burger_cost = menu["Big Mac"]
+potato_cost = menu["Potatoes"]
+
+puts burger_cost
+#=> 5
+puts potato_cost
+#=> 2
+
+puts "A Big Mac costs #{burger_cost}$ and potatoes are #{potato_cost}$ !"
+#=> A Big Mac costs 5$ and potatoes are 2$ !
+```
+
+--
+
+### Écriture
+
+Ajouter/modifier une valeur dans un Hash:
+
+```ruby
+# On utilise l'opérateur `=`. 
+# L'accès se fait de langages même facon que pour un tableau, 
+# mais avec une clef au lieu d'un index.
+
+menu["Big Mac"] = 10
+menu["Coca"] = 3
+
+p menu #=> { "Big Mac" => 10, "Potatoes" => 2, "Coca" => 3 }
+```
+
+--
+
+### Méthodes sur les Hash
+
+```ruby
+hash = { "city" => "Paris", "population" => 2000000 }
+
+hash.count # => 2 (On peut aussi utiliser .size ou .length)
+
+hash.has_key?("country") # => false
+hash.value?("Paris") # => true
+
+hash.delete("city") # => { "population" => 2000000 }
+
+hash.to_a  # => [ ['city', 'Paris'], ['population', '2000000'] ]
+```
+
+---
+
+## Symbols
+
+--
+
+* \- Un symbole est ~ equivalent à une string sans espace
+* \- Un symbole est unique en mémoire
+* \- Les symboles sont utilisés en tant qu'identifiants
+
+```ruby
+a = "first_name" #=> String 'first_name'
+b = "first_name" #=> Different String 'first_name'
+
+c = :first_name #=> Symbol :first_name
+d = :first_name #=> Same Symbol :first_name
+```
+
+--
+
+### Quel intérêt ?
+
+* \- Économiser de la mémoire
+* \- Utilisés comme clef de Hash (plus agréable à utiliser)
+
+```ruby
+user = {
+  :name => "George",
+  :age  => 25,
+  :country => "France",
+  :gender  => "Male"
+  :social_security_number => 13498234823842
+}
+
+puts user[:name] #=> "George"
+puts user[:age]  #=> 25
+```
+
+--
+
+### Quel intérêt ? (2)
+
+Permet une syntaxe de Hash simplifiée
+
+```ruby
+user = {
+  :name => "George",
+  :age  => 25
+}
+
+puts user[:name] #=> "George"
+```
+
+Peut aussi s'écrire
+
+```ruby
+user = {
+  name: "George",
+  age:  25
+}
+
+# Automatiquement transformé en
+p user #=> { :name => "George", :age => 25 }
+
+puts user[:name] #=> "George"
+```
+
+--
+
+### Note sur les Hash
+
+On peut mélanger des clefs en symbols et en strings:
+
+```ruby
+user = {
+  name: "George",
+  :age => 25,
+  "social security number" => 15324234234
+}
+```
+Mais ce mélange est **à éviter** car peu lisible.
+
+---
+
+## Iterators
+
+Comment parcourir un Hash ou un Array ?
+
+--
+
+### For
+
+```ruby
+list = ["George", "Roger", "Mathieu"]
+
+for name in list
+  puts "Hello #{name}"
+end
+#=> Hello George
+#=> Hello Roger
+#=> Hello Mathieu
+```
+
+```ruby
+user = { email: "george@gmail.com", age: 25, gender: "Male" }
+
+for key, value in user
+  puts "#{key.to_s.capitalize}'s value is #{value}"
+end
+#=> Email's value is george@gmail.com
+#=> Age's value is 25
+#=> Gender's value is Male
+```
+
+--
+
+### Each
+La bonne façon de faire (orientée objet)
+```ruby
+list = ["George", "Roger", "Mathieu"]
+
+list.each do |name|
+  puts "Hello #{name}"
+end
+```
+```ruby
+user = { email: "george@gmail.com", age: 25, gender: "Male" }
+
+user.each do |key, value|
+  puts "#{key.to_s.capitalize}'s value is #{value}"
+end
+```
+
+--
+
+### Comprendre each
+
+* \- `#each` est une méthode
+* \- Elle prend en argument un `block` (équivalent à une fonction anonyme en JS)
+
+```javascript
+// Javascript
+[1,2,3].forEach(function(number) {
+  console.log(number);
+});
+// 1, 2, 3
+```
+
+```ruby
+# Ruby
+[1,2,3].each do |number| # <-- argument passé à la "fonction anonyme" (block)
+  puts number
+end
+#=> 1, 2, 3
+```
+
+* \- Les mots clefs `do` et `end` délimitent un block.
+* \- Vous pouvez considérer un block comme un morceau de code **encapsulé**.
+
+--
+
+### Syntaxe alternative
+
+* \- On peut utiliser `{...}` à la place de `do...end`
+* \- La convention veut qu'on utilise `{...}` pour les blocks sur une seule ligne et `do...end` pour les blocks multi-lignes.
+
+```ruby
+[1,2,3].each { |number|  puts number }
+```
+```ruby
+[1,2,3].each do |number|
+  number_times_5 = number * 5
+  puts number_times_5
+end
+```
+
+--
+
+### Times, Map, Select...
+
+Il existe de nombreux autres itérateurs, en voici quelques un:
+
+```ruby
+# #times exécute un block de code un certain nombre de fois
+5.times { print "Hello " } #=> Hello Hello Hello Hello Hello
+```
+
+```ruby
+# #map applique un block de code à chaque élément d'un tableau/hash
+list = ["George", "Roger", "Mathieu"]
+
+new_list = list.map { |name| name.upcase }
+#=> ["GEORGE", "ROGER", "MATHIEU"]
+```
+
+```ruby
+# #select filtre un tableau/hash via une condition
+list = ["George", "Roger", "Mathieu", "Robert"]
+
+filtered_list = list.select { |name| name.chars.first = "R" }
+#=> ["Roger", "Robert"]
+```
+
+Et d'autres encore :
+
+* \- http://www.ruby-doc.org/core-2.2.0/Array.html
+* \- http://www.ruby-doc.org/core-2.2.0/Hash.html
+* \- http://www.ruby-doc.org/core-2.2.0/Enumerable.html
+
+---
+
+## Organiser son code
+
+  On peut choisir d'écrire tout son code dans un seul fichier mais ce n'est que rarement une bonne idée ;)
+
+--
+
+### REQUIRE
+
+`require` permet de charger un autre fichier/library
+
+```ruby
+# /home/user/code/helpers.rb
+
+def display_prompt
+  puts "Entrez quelque-chose"
+  print "> "
+end
+```
+
+```ruby
+# /home/user/code/interface.rb
+require "helpers"
+
+def ask_user_something
+  display_prompt
+  user_input = gets
+end
+
+ask_user_something()
+```
+
+```bash
+$ cd /home/user/code
+$ ruby interface.rb
+Entrez quelque-chose
+>
+```
+
+--
+
+### REQUIRE_RELATIVE
+
+Pareil que `require` mais se base sur l'emplacement du fichier actuel.
+
+```ruby
+# /home/user/code/helpers.rb
+
+def display_prompt
+  puts "Entrez quelque-chose"
+  print "> "
+end
+```
+
+```ruby
+# /home/user/code/interface.rb
+
+# require par rapport à l'emplacement du fichier `interface.rb`
+require_relative "./helpers"
+
+def ask_user_something
+  display_prompt
+  user_input = gets
+end
+
+ask_user_something()
+```
+

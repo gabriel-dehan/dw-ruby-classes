@@ -1,0 +1,28 @@
+---
+layout: default
+title: Dawan - Cours de Ruby & Rails
+---
+
+<div id="home">
+  <h1>Dawan - Ruby
+    <br>
+    <small>Ruby & Ruby On Rails</small>
+  </h1>
+  <ol>
+    {% for slide in site.slides %}
+    <li>
+      <a class="slide-entry" href="{{ slide.url }}">{{ slide.title }}</a>
+      <small>{{ slide.description }}</small>
+    </li>
+    {% endfor %}
+  </ol>
+
+  <h2>Exercices</h2>
+  <ol>
+    {% for exercice in site.exercices %}
+    <li>
+      <a chass="exercice-entry" href="{{ exercice.url }}">{{ exercice.title }}</a>
+    </li>
+    {% endfor %}
+  </ol>
+</div>

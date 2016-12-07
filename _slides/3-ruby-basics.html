@@ -1,0 +1,461 @@
+---
+title: Jour 1 - Les bases de Ruby
+reveal:
+  theme: solarized
+  slideNumber: true
+  progress: true
+  mouseWheel: true
+  transition: linear
+---
+
+# Les bases de Ruby
+
+---
+
+## Variables
+
+--
+
+### Assignations
+
+* Pas de mot clef ou de signe (`$`) spécifique
+* Une variable peut contenir n'importe quel type de donnée
+* Les noms de variables doivent êtres en `snake_case`
+
+```
+# Ruby
+age = 8
+first_name = "Jean"
+is_admin = true
+
+// PHP
+$age = 8;
+$first_name = "Jean";
+$is_admin = TRUE;
+
+// C
+int age = 8;
+char first_name[] = "Jean";
+bool is_admin = true;
+```
+
+--
+
+### Assignations multiples
+
+```
+nom, prenom, age = "Abitbol", "George", 45
+# nom = "Abitbol"
+# prenom = "George"
+# age = 45
+
+nom, prenom, age = "Abitbol"
+# nom = "Abitbol"
+# prenom = nil
+# age = nil
+
+nom = "Abitbol", "George", 45
+# nom = ["Abitbol", "George", 45]
+```
+
+---
+
+## Input / Output
+
+--
+
+### Output
+
+--
+
+Afficher des données dans le terminal
+```
+p "Bonjour"
+# => "Bonjour" + retour à la ligne
+puts "Bonjour"
+# => Bonjour + retour à la ligne
+print "Bonjour"
+# => Bonjour
+
+name = "Gabriel Dehan"
+
+puts "Bonjour, mon nom est " + name
+# => Bonjour, mon nom est Gabriel Dehan
+```
+
+--
+
+### Input
+
+--
+
+Demander des données à l'utilisateur
+```
+puts "Quel est votre âge ?"
+print "> "
+age = gets.chomp 
+
+puts "Vous avez #{age} ans !"
+# => Vous avez X ans !
+```
+
+---
+
+## Types de données basiques
+
+--
+
+### En Ruby tout est objet
+
+```ruby
+"Roger".class      #=> String
+13.class           #=> Fixnum or Integer
+3.15.class         #=> Float
+true.class         #=> TrueClass
+false.class        #=> FalseClass
+nil.class          #=> NilClass
+(1..1000).class    #=> Range
+["Roger", 13, 3.15].class #=> Array
+```
+
+--
+
+## String
+
+```ruby
+"hello world".upcase   #=> "HELLO WORLD"
+"Hello" == 'Hello'     #=> true
+```
+
+Concatenation
+
+```
+num = 1 + 2
+"three: " + num.to_s   #=> "three: 3"
+'three: ' + num.to_s   #=> 'three: 3'
+```
+
+Interpolation
+
+```ruby
+"two: #{1 + 1}"    #=> "two: 2"
+'two: #{1 + 1}'    #=> "two: #{1 + 1}"
+```
+
+Conversion en entier
+
+```ruby
+'1984'.class        #=> String
+'1984'.to_i         #=> 1984
+'1984'.to_i.class   #=> Fixnum
+
+```
+
+--
+
+## Fixnum (Integer)
+
+```ruby
+# Standard arithmetic
+1 + 2      #=> 3
+2 * 4      #=> 8
+
+# Built-in methods
+20.even?   #=> true
+20.odd?    #=> false
+20.next    #=> 21
+```
+
+Conversion en string
+
+```ruby
+1984.to_s    #=> "1984"
+```
+
+--
+
+## Float
+
+```
+# Standard arithmetic
+1.21 + 1.22     #=>  2.4299999999999997
+
+# Built-in methods
+5.28.truncate   #=> 5
+
+3.1416.round    #=> 3
+3.1416.floor    #=> 3
+3.1416.ceil     #=> 4
+
+-4.2.abs        #=> 4.2
+```
+
+--
+
+## Nil
+
+`nil` représente **l'absence de valeur** et est toujours **`false`**.
+
+```ruby
+user = nil
+user.nil? # => true
+
+nil.to_i  # => 0
+nil.to_s  # => ""
+```
+`nil` est l'équivalent de `null` dans de nombreux autres langages.
+
+--
+
+## Array
+
+```ruby
+['Roger', 12, 3.14].size      #=> 3
+[1, 2, 3, 4].shuffle          #=> 1 (au hasard)
+['Huey', 'Dewey', 'Louie'].sort  #=> ["Dewey", "Huey", "Louie"]
+[3, 5, 1].sort  #=> [1, 3, 5]
+```
+
+--
+
+## Range
+
+```ruby
+(1..10).to_a       #=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+(1...10).to_a      #=> [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+('a'..'e').to_a    #=> ['a', 'b', 'c', 'd', 'e']
+('A'...'E').to_a   #=> ['A', 'B', 'C', 'D']
+```
+
+--
+
+## Récap
+
+```ruby
+42         # Fixnum
+1.25       # Float
+true       # Boolean (TrueClass ou FalseClass)
+('a'..'e') # Range
+"hello world"         # String
+[1, 2, "a", "e", "i"] # Array
+```
+
+--
+
+## La doc de Ruby est votre amie !
+
+Vous avez une tâche basique à accomplir ?
+
+* \- Prendre un élément d'un tableau au hasard
+* \- Mettre un mot en capitales
+* \- Séparer un mot en un tableau de caractères
+* \- etc..
+
+<br>
+**N'oubliez pas: consultez la documentation**
+
+=> http://www.ruby-doc.org/core-2.3.0/
+
+---
+
+## Methodes (Fonctions)
+
+--
+
+Une méthode est un bloc de code réutilisable, c'est l'équivalent des fonctions en C, PHP ou Javascript.
+
+```ruby
+def say_hello()
+  puts "hello world"
+end
+
+say_hello() #=> "hello world"
+```
+
+--
+
+Elle peut prendre des **arguments** et **retourne un résultat**.
+
+```ruby
+def method_name(argument1, argument2, etc)
+  # do something
+  # return something
+end
+```
+
+```ruby
+def full_name(first_name, last_name)
+  name = first_name.capitalize + " " + last_name.capitalize
+  return name
+end
+
+result = full_name("George", "Abitbol") 
+puts result #=> "George Abitbol"
+
+```
+
+--
+
+## Différence Définition et Appel
+
+--
+
+### Définition
+
+On **définie** une méthode avec le mot clef `def`
+
+```ruby
+def find_user(user_id) # <=== identifiant et arguments
+  # coeur de la méthode
+end
+```
+
+--
+
+### Appel
+
+On **appelle** une méthode en utilisant son **identifiant** et en lui fournissant les **arguments** nécessaires.
+```ruby
+some_user_id = 5
+result = find_user(some_user_id)
+puts result
+```
+L'appel de la méthode **retourne un résultat**. Ce résultat peut-être de n'importe quel type (*String, Integer, Array...*)
+
+--
+
+### Passage par référence
+
+Lorsqu'on passe un argument à une méthode, il est passé par `référence` et non pas par `valeur`.
+```ruby
+def transform(text)
+  text = "Other text"
+end
+
+a_string = "Some text"
+transform(a_string)
+
+puts a_string # => "Some text"
+```
+Toutefois, si on écrase la valeur de la variable, la **variable initiale reste inchangée**.
+
+--
+
+### Passage par référence (2)
+
+Dans d'autre cas, comme lors de l'appel de méthodes dites `destructrices`, la **variable initiale est modifiée**.
+
+```ruby
+def allcaps(string)
+  string.upcase!
+end
+
+a_string = "Some text"
+allcaps(a_string) 
+
+puts a_string # => "SOME TEXT"
+```
+
+--
+
+### Passage par référence (3)
+
+Un autre cas d'exemple où la variable initiale est modifiée est l'ajout de valeur dans un tableau.
+
+```ruby
+def transform(array)
+  array << 5
+end
+
+an_array = [1, 2, 3, 4]
+transform(an_array)
+
+puts an_array # => [1, 2, 3, 4, 5]
+```
+
+--
+
+### Les parenthèses sont facultatives
+
+```ruby
+def say_hello
+  puts "hello world"
+end
+
+say_hello() #=> "hello world"
+say_hello   #=> "hello world"
+```
+```ruby
+def login email, password
+  user = User.find_by_email(email)
+
+  if user && user.password == password
+    return user
+  else
+    return nil
+  end
+end
+
+login("george@gmail.com", "bonmotdepasse")    #=> <User>
+login "george@gmail.com", "mauvaismotdepasse" #=> nil
+```
+
+--
+
+### Le mot clef return est facultatif
+
+```ruby
+def login email, password
+  user = User.find_by_email(email)
+
+  if user && user.password == password
+    user # pas besoin de return
+  else
+    nil  # pas besoin de return
+  end
+end
+
+login "george@gmail.com", "password"  #=> nil
+login("george@gmail.com", "password") #=> nil
+```
+Ruby renvoie toujours la dernière expression évaluée.
+
+--
+
+## Conventions sur les noms de méthode
+
+--
+
+Les noms de méthodes sont **toujours** en **snake_case**.
+
+```ruby
+"Bonjour".valid_encoding?
+
+"8".to_i
+
+User.find_all
+
+say_hello
+```
+
+--
+
+Une méthode avec un **"?"** renvoie toujours `true` ou `false`
+```ruby
+42.even? #=> true
+42.odd?  #=> false
+```
+
+Une méthode avec un **"!"** modifie directement ses arguments
+
+```ruby
+text = 'Some text'
+
+text.upcase   #=> "SOME TEXT"
+text          #=> "Some text"
+
+text.upcase!  #=> "SOME TEXT"
+text          #=> "SOME TEXT"
+```
+
