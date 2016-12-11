@@ -1,5 +1,5 @@
 ---
-title: Soundcloud downloader
+title: Jour 3 - Soundcloud Downloader - Basique
 layout: exercise
 ---
 
@@ -9,9 +9,9 @@ Cet exercice est le principal exercice de ce cours.
 
 Nous allons en écrire 3 versions, en y allant de façon incrémentale:
 
-- Une version dans le terminal écrite en programmation impérative classique (ce que vous avez fait jusqu'à maintent et le but du présent exercice)
-- Une version dans le terminal écrite en programmation orientée objet
-- Une application web Ruby On Rails plus complète
+- Une version dans le terminal écrite en programmation impérative classique (ce que vous avez fait jusqu'à maintenant et le but du présent exercice)
+- Une version dans le terminal écrite en programmation orientée objet (demain au aujourd'hui si vous êtes vraiment très rapides)
+- Une application web Ruby On Rails avec une interface graphique (Demain & Après-demain)
 
 ## Consigne
 

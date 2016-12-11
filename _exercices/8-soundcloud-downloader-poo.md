@@ -1,5 +1,5 @@
 ---
-title: Soundcloud downloader - OOP
+title: Jour 4 - Soundcloud downloader - Orienté Objet
 layout: exercise
 ---
 

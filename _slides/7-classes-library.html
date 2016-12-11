@@ -8,7 +8,202 @@ reveal:
   transition: linear
 ---
 
-# Classes fondamentales, Libraries & Gems
+# Core Libraries & Gems
 
 ---
 
+## Date & Time
+
+--
+
+Il existe 3 classes pour gérer les dates et temps en Ruby :
+
+* \- `Date` (Date uniquement)
+* \- `Time` (Date + Temps)
+* \- `DateTime` (Date + Temps)
+
+--
+
+### Date
+
+```ruby
+require 'date'
+
+Date.new(2016, 12, 11)
+# => #<Date: 2016-12-11>
+
+today = Date.today
+# => #<Date: 2016-12-11>
+
+today.next # => #<Date: 2016-12-12>
+today + 5  # => #<Date: 2016-12-16>
+today.year # => 2016
+today.sunday? # => true
+today.saturday? # => false
+today.to_s # => "2016-12-11"
+
+today <= today + 5 # => true
+```
+```ruby
+today.strftime("Printed on %d/%m/%Y") # => "Printed on 11/12/2016"
+```
+
+[Documentation](https://ruby-doc.org/stdlib-2.3.3/libdoc/date/rdoc/Date.html)
+
+--
+
+### Time
+
+```ruby
+Time.now 
+# => 2016-12-11 16:55:50 +0100
+
+Time.new(1993, 02, 24, 12, 0, 0, "+09:00") 
+# => 1993-02-24 12:00:00 +0900
+
+time = Time.at(628232400) 
+#=> 1989-11-28 00:00:00 -0500
+
+time.monday? # => false
+time.to_i    # => 628232400
+
+time >= Time.now # => false
+
+time.getutc # => 1989-11-28 05:00:00 UTC
+
+time.strftime("On the %d of %b at %I:%M %p")
+# => On 28 of Nov at 06:00 AM
+```
+
+[Documentation](https://ruby-doc.org/core-2.3.0/Time.html)
+
+--
+
+### DateTime
+
+* DateTime hérite de Date, mais gère aussi le temps. C'est une sorte de mélange entre Date & Time.
+* De fait, il existe très peu de différences entre `Time` & `DateTime` dans les versions récentes de Ruby. 
+
+* Les principales différences sont au niveau de la gestion de la mémoire et la façon dont les données sont stockées.
+
+* \- [Documentation](http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html)
+* \- [Time vs DateTime](http://stackoverflow.com/questions/1261329/whats-the-difference-between-datetime-and-time-in-ruby)
+
+---
+
+## Expressions régulières (Regexp)
+
+--
+
+Ruby comme tout langage permet l'utilisation d'expressions régulières :
+
+```ruby
+# Vérifier qu'une string correspond à une regexp
+phone_regexp = /(\+33|0)\d{9}/
+"0678024353" =~ /\d{11}/ #=> nil
+"0678024353" =~ phone_regexp #=> 0
+```
+
+```ruby
+# Récupérer les matchs d'une regexp
+match = "George Abitbol".match /(\w*)\s(\w*)/
+match[1] #=> George
+match[2] #=> Abitbol
+```
+
+Pour tester vos regexp et les composer n'hésitez pas à utiliser ces deux outils:
+
+* \- [Rubular](http://rubular.com/)
+* \- [Regexp Visualizer](http://regexper.com/) (très utile pour comprendre une regexp)
+
+---
+
+## Threading in Ruby
+
+--
+
+### Concurrency vs Parallelism
+
+--
+
+Le threading de code peut-être fait de **deux façons** :
+
+* \- De façon concurrente (une tâche après, l'autre en alternant régulièrement)
+* \- En parallèle  (deux tâches en même temps)
+
+--
+
+* La **concurrence** est **possible** en Ruby.
+* Le parallèlisme est **impossible** en Ruby, à cause du `GIL`.
+
+--
+
+### Solutions
+
+Afin de "contourner" le **GIL** il existe un seul moyen : **changer de compilateur/interpréteur**.
+
+* \- *JRuby (Ruby on JVM)*
+* \- *Rubinius (Ruby on RubyVM)*
+
+--
+
+### Aller plus loin 
+
+* \- [Ruby Concurrency](https://blog.engineyard.com/2013/ruby-concurrency)
+* \- [Working With Ruby Threads](http://blog.ifyouseewendy.com/blog/2016/02/16/review-working-with-ruby-threads/)
+* \- [Threads Documentation](https://ruby-doc.org/core-2.2.0/Thread.html)
+* \- [Fiber Documentation](https://ruby-doc.org/core-2.2.0/Thread.html)
+
+---
+
+## Gems
+
+Ruby possède un outil permettant d'installer et travailler facilement avec des bibliothèques externes (libraries): les gems.
+
+--
+
+### Trouver une Gem
+
+- [https://rubygems.org/](https://rubygems.org/)
+- [https://www.ruby-toolbox.com/](https://www.ruby-toolbox.com/)
+- Google/Github
+
+--
+
+### Installer une Gem
+
+```bash
+gem install nom_de_la_gem
+```
+
+Prenons l'exemple de [colorize](https://github.com/fazibear/colorize)
+
+```bash
+$ gem install colorize
+```
+
+--
+
+### Utiliser une Gem
+
+```ruby
+# mon_fichier.rb
+require 'nom_de_la_gem'
+```
+
+Donc pour colorize:
+
+```ruby
+# colors.rb
+require 'colorize'
+
+colors = String.colors.map do |color_name|
+  color_name.to_s.colorize(color_name)
+end
+
+puts colors.join(", ")
+puts "--------------"
+puts "Please my eyes".green.on_red
+```
+
+{% img 'example.png' alt:'Example gem' class:'example-gem' %}

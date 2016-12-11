@@ -1,5 +1,5 @@
 ---
-title: Soundcloud downloader - Rails
+title: Jour 5 - Soundcloud downloader - Ruby On Rails
 layout: exercise
 ---
 
