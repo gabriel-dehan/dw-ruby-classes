@@ -1,11 +1,11 @@
 ---
-title: Louchebem
+title: Jour 2 - Louchebem
 layout: exercise
 ---
 
 # Louchebem
 
-Le Louchebem est un langage d'argot utilisé par les bouchers français au 19ème siècle.
+Le Louchebem est un langage d'argot utilisé par les bouchers français du 19ème siècle.
 Le but de cet exercice est de créer un script qui prend une phrase et la traduit en Louchebem pour que vous puissiez enfin communiquer avec votre boucher ;)
 
 Saviez vous que certaines expressions populaires comme "larfeuille", "loufiah", "l'argot", ou "loufoque" viennent du Louchebem ?
@@ -39,18 +39,20 @@ Les suffixes aléatoires sont les suivants :
 
 ## Resources & Tips
 
-* **Utilisez IRB pour tester vos bouts de code**
-* Créez deux méthodes minimum, une pour traduire un mot et une pour traduire une phrase (qui appèlera la méthode pour traduire un mot plusieurs fois)
+* **Utilisez IRB pour tester vos morceaux de code**
+* Créez deux méthodes minimum, une pour traduire un mot et une pour traduire une phrase (qui appellera la méthode pour traduire un mot plusieurs fois)
 * Pour séparer une phrase en un tableau de mot, il existe une méthode simple, [cherchez par ici](http://ruby-doc.org/core-2.2.0/String.html) ou faites une simple recherche google ;)
 * Vous pouvez prendre une valeur aléatoire depuis un tableau en utilisant la méthode [#sample](http://ruby-doc.org/core-2.2.0/Array.html#method-i-sample)
 * Si vous avez un tableau, vous pouvez en extraire plusieurs éléments de la sorte:
 
 ```ruby
-letters = ["r", "e", "l", "o", "u"]
-letters[0..2] #=> ["r", "e", "l"]
+letters = ["e", "r", "l", "o", "u"]
+letters[0..2] #=> ["e", "r", "l"]
 
-# De la lettre à l'index 3 jusqu'à la fin du tableau
+# On extrait à partir de la lettre à l'index 3
+# jusqu'à la fin du tableau
 letters[3..(letters.size - 1)] #=> ["o", "u"]
-# Ou (`...` exclu la dernière valeur)
+
+# Peut aussi s'écrire (`...` exclu la dernière valeur)
 letters[3...letters.size] #=> ["o", "u"]
 ```

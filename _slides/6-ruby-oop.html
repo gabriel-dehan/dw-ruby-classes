@@ -1,5 +1,5 @@
 ---
-title: Ruby Orienté Objet
+title: Jour 3 - Ruby Orienté Objet
 reveal:
   theme: solarized
   slideNumber: true
@@ -37,27 +37,24 @@ String.new("Roger") == "Roger"
 
 --
 
-### Définir une classe
+### Définir une classe (Rappel)
 
 ```ruby
-# Ruby
 class User
-
-def initialize(attributes)
-# Do something
-end
+  def initialize(attributes)
+    # Do some initialization
+  end
 end
 ```
 
-```php
-// PHP
-class User {
+--
 
-public function __construct($attributes) {
-// Do something
-}
-}
-```
+### Conventions & Normes
+
+* \- Nom de classe en `CamelCase`
+* \- Une **classe** par **fichier**
+* \- Nom du fichier en `snake_case`
+* \- Ex: une classe `WebScraper`, un fichier `web_scraper.rb`
 
 --
 
@@ -65,7 +62,6 @@ public function __construct($attributes) {
 
 On utilise `@` suivi du nom de la variable.
 ```ruby
-# Ruby
 class User
 
   def initialize(attributes)
@@ -75,23 +71,6 @@ class User
     @admin = false
   end
 end
-```
-
-```php
-// PHP
-class User {
-  private $first_name;
-  private $last_name;
-  private $age;
-  private $admin;
-
-  public function __construct($attributes) {
-    $this->first_name  = $attributes["first_name"];
-    $this->last_name   = $attributes["last_name"];
-    $this->age   = $attributes["age"];
-    $this->admin = false;
-  }
-}
 ```
 
 --
@@ -99,8 +78,8 @@ class User {
 ### Créer une nouvelle instance
 
 `MaClass.new` appelle la méthode `initialize` et crée une nouvelle instance de la classe.
+
 ```ruby
-# Ruby
 class User
 
   def initialize(attributes)
@@ -111,21 +90,48 @@ class User
   end
 end
 
-user = User.new({ first_name: "Gabriel", last_name: "Dehan", age: 24 })
+user = User.new({ first_name: "Gabriel", last_name: "Dehan", age: 25 })
 p user
 #=> #<User:0x007f84b72a5d30 @first_name="Gabriel", @last_name="Dehan", @age=24, @admin=false>
 ```
-```php
-// PHP
-$user = new User(array( "first_name" => "Gabriel", "last_name" => "Dehan", "age" => 24));
+
+--
+
+### Méthodes d'instance
+
+```ruby
+# Ruby
+class User
+  def initialize(attributes)
+    @first_name  = attributes[:first_name]
+    @last_name   = attributes[:last_name]
+    @age   = attributes[:age]
+    @admin = false
+  end
+
+  def full_name
+    "#{@first_name} #{@last_name}"
+  end
+```
+```ruby
+  def is_adult?
+    @age >= 18
+  end
+
+  def set_admin(value)
+    @admin = value
+  end
+end
 ```
 
 --
 
 ### Getters
 
+Les **variables d'instances** ne sont accessibles qu'au travers de **méthodes d'instances**.
+On ne peut pas faire `user.@first_name` par exemple.
+
 ```ruby
-# Ruby
 class User
 
   def initialize(attributes)
@@ -137,59 +143,39 @@ class User
     @first_name
   end
 end
+
+user = User.new({ first_name: "Gabriel", last_name: "Dehan", age: 25 })
 ```
+```ruby
+user.@first_name # FAUX, On ne peut pas accéder aux variables directement !
 
-```php
-// PHP
-class User {
-  private $first_name;
-  // ...
-
-  public function __construct($attributes) {
-    $this->first_name  = $attributes["first_name"];
-    # ...
-  }
-
-  public function getFirstName() {
-    return $this->first_name;
-  }
-}
+user.first_name # CORRECT, On passe par une méthode définie préalablement.
 ```
 
 --
 
 ### Setters
 
+Il en va de même pour changer la valeur d'une variable, on ne peut pas simplement faire `user.@first_name = "Roger"`.
 ```ruby
-# Ruby
 class User
-
   def initialize(attributes)
     @first_name  = attributes[:first_name]
     # ...
   end
 
+  # On peut utiliser '=' dans le nom de méthode !
   def first_name=(value)
     @first_name = value
   end
 end
+
+user = User.new({ first_name: "Gabriel", last_name: "Dehan", age: 25 })
 ```
+```ruby
+user.@first_name = "Roger" # FAUX, On ne peut pas accéder aux variables directement !
 
-```php
-// PHP
-class User {
-  private $first_name;
-  // ...
-
-  public function __construct($attributes) {
-    $this->first_name  = $attributes["first_name"];
-    // ...
-  }
-
-  public function setFirstName(value) {
-    $this->first_name = value;
-  }
-}
+user.first_name = "Roger" # CORRECT, On passe par une méthode définie préalablement.
 ```
 
 --
@@ -197,14 +183,11 @@ class User {
 ### Accessors (Getters ET Setters)
 
 ```ruby
-# Ruby
 class User
-
   def initialize(attributes)
     @first_name  = attributes[:first_name]
     @last_name   = attributes[:last_name]
-    @age   = attributes[:age]
-    @admin = false
+    # ...
   end
 
   def first_name
@@ -214,7 +197,6 @@ class User
   def first_name=(value)
     @first_name = value
   end
-
   # Et pareil pour chaque attribut ...
 end
 ```
@@ -234,40 +216,6 @@ class User
     @last_name   = attributes[:last_name]
     @age   = attributes[:age]
     @admin = false
-  end
-end
-```
-
---
-
-### Méthodes d'instance
-
-```ruby
-# Ruby
-class User
-  attr_reader :admin
-  attr_accessor :first_name, :last_name, :age
-
-  def initialize(attributes)
-    @first_name  = attributes[:first_name]
-    @last_name   = attributes[:last_name]
-    @age   = attributes[:age]
-    @admin = false
-  end
-
-  def full_name
-    "#{@first_name} #{@last_name}"
-  end
-```
-
-```ruby
-  def is_adult?
-    @age >= 18
-  end
-
-  private
-  def set_admin(value)
-    @admin = value
   end
 end
 ```
@@ -301,6 +249,13 @@ end
 User.create_fake
 #=> #<User:0x007f84b72a5d30 @first_name="Roger", @last_name="Maupas", @age=43, @admin=false>
 ```
+
+--
+
+### Aller plus loin
+
+[https://ruby-doc.org/core-2.3.1/Class.html](https://ruby-doc.org/core-2.3.1/Class.html)
+
 ---
 
 ## Héritage
@@ -361,8 +316,6 @@ Un module ou *namespace* permet de mieux organiser son code et d'éviter les con
 
 --
 
-### Définition
-
 * \- On utilise le mot clef `module` pour définir un module
 * \- On accède à une classe du module via `NomDuModule::NomDeLaClasse`
 
@@ -407,3 +360,37 @@ ActiveRecord::Base # Module de base d'active record
 ActiveRecord::Serialization # Module permettant de parser/restaurer de la donnée JSON
 ActiveRecord::Translation # Module permettant de traduire les attributes d'un modèle
 ```
+
+---
+
+## Mixins
+
+Un mixin est une classe dans laquelle est inclu un **module** contenant des méthodes.
+
+--
+
+```ruby
+module Engine
+  def start
+    # ...
+  end
+  
+  def remaining_gas
+    # ...
+  end
+end
+
+class Car
+  include Engine # Inclu toutes les méthodes du module Engine
+end
+```
+
+--
+
+## include VS extend
+
+Il existe deux moyens d'inclure un module.
+
+* \- `include` inclu les méthodes en tant que méthodes d'instance.
+* \- `extend` inclu les méthodes en tant que méthodes de classe.
+

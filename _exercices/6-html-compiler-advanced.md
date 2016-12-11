@@ -1,5 +1,5 @@
 ---
-title: HTML Compiler
+title: Jour 2 - HTML Compiler (Avancé)
 layout: exercise
 ---
 
@@ -36,11 +36,11 @@ tag(tag_name, content, attributes)
 
 ## Vous avez fini ?
 
-Bravo, vous avez réussi à créer un équivalent (limité, certes) de la librarie [markaby](https://github.com/markaby/markaby"), utilisée par le framework Web [camping](http://camping.io/) après quelques heures de Ruby.
+Bravo, vous avez réussi à créer un équivalent (limité, certes) de la librarie [markaby](https://github.com/markaby/markaby"), utilisée par le framework Web [camping](http://camping.io/) après quelques heures de Ruby. Vous avez aussi créé un équivalent Ruby de la syntaxe JSX, utilisée par la library React et de nombreuses autres libraries web récentes.
 
 ## Aller plus loin
 
-Pour ceux qui ont fini, améliorez la méthode `tag` en faisant en sorte que l'on puisse lui passer un block :
+Pour ceux qui ont fini, n'hésitez pas à améliorez la méthode `tag` en faisant en sorte que l'on puisse lui passer un block :
 
 ```ruby
 tag('div', { class: "container", id: "wow" }) do
