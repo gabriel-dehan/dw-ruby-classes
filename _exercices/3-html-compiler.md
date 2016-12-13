@@ -27,7 +27,7 @@ tag(tag_name, content, id)
 
 - `tag_name` est une **string**
 - `content` est une **string**
-- `content` est une **string**
+- `id` est une **string**
 
 ## Resources & Tips
 

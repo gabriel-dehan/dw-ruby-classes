@@ -74,7 +74,7 @@ Elle devra retourner une **`String`** que vous stockerez dans une variable avant
 
 #### Deuxième étape
 
-En utilisant cette méthode, composez un programme qui demander, dans le terminal, à l'utilisateur son prénom, nom et age et lui affichera en retour la phrase de présentation retournée par la méthode **`introduce_me()`**.
+En utilisant cette méthode, composez un programme qui demande, dans le terminal, à l'utilisateur son prénom, nom et age et lui affichera en retour la phrase de présentation retournée par la méthode **`introduce_me()`**.
 
 #### Troisième étape
 

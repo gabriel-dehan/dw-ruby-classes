@@ -24,7 +24,7 @@ def is_in?(sentence, word)
 end
 
 def replace(string, character, replacement)
-  # TODO: Retournez une cope de la chaîne `string` avec `character` remplacé par `replacement`
+  # TODO: Retournez une copie de la chaîne `string` avec `character` remplacé par `replacement`
   # Example d'appel: replace("casanova", "a", "o") => "cosonovo"
 end
 
