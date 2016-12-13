@@ -1,0 +1,178 @@
+---
+title: Jour 4 - MVC
+reveal:
+  theme: solarized
+  slideNumber: true
+  progress: true
+  mouseWheel: true
+  transition: linear
+---
+
+# MVC
+
+---
+
+## MVC ?
+
+* Architectural Design Pattern
+* = Une manière d'architecturer son application
+* = Une façon d'organiser ses fichiers
+* = De bonnes pratiques
+* = Des applications plus maintenables
+
+--
+
+### Design pattern ?
+
+* Un design pattern, est une "leçon apprise", par des développeurs avant vous. C'est de la "sagesse" accumulée, des bonnes pratiques, résultats de nombreux essais et erreurs. 
+
+* Il en existe de nombreux, autres que le MVC. N'hésitez pas à vous renseigner dessus.
+
+
+---
+
+## Separation of concerns
+
+--
+
+On sépare son application en 3 parties :
+
+* \- **M**odel
+* \- **V**iew
+* \- **C**ontroller
+
+---
+
+## Model (Donnée)
+
+* Un **model** est un objet contenant de la donnée.
+
+--
+
+* Les **models** représentent la donnée de votre application et la logique de traitement et de validation qui y est rattachée.
+
+* Des exemples de classes: `User`, `Restaurant`, `Recipe`, `Post`, `Comment`, ...
+
+--
+
+```ruby
+class Restaurant
+  attr_reader :name, :address, :capacity, :ratings
+
+  def initialize(attributes)
+    @name = attributes[:name]
+    @address = attributes[:address]
+    @capacity = attributes[:capacity]
+    @ratings = []
+  end
+```
+```ruby
+  def vote!(rating)
+    @ratings << rating
+  end
+  
+  def rate
+    @ratings / @ratings.length
+  end
+end
+```
+
+---
+
+## View (Input/Output)
+
+* Une **view** permet de présenter la donnée du **model**. Cela peut-être un fichier *HTML/CSS* par exemple, ou simplement des **puts** et **print** dans le terminal.
+
+--
+
+* Une **view** est stupide, elle ne contient **aucune logique** et ne sait faire qu'une seule chose: **afficher** de la donnée et récupérer les **inputs de l'utilisateur**.
+
+--
+
+* Une **view** est souvent une classe. 
+* Par exemple si je veux représenter un restaurant, j'aurais une `RestaurantView`, pour mon user, une `UserView`, etc...
+
+--
+
+```ruby
+class RestaurantView
+  def restaurants_index(restaurants)
+    # restaurants.each ... puts restaurant.name ...
+  end
+  
+  def restaurant_show(restaurant)
+    # puts restaurant.name, etc...
+  end
+
+  def restaurant_new
+    info = {}
+    puts "What is your restaurant name?"
+    info[:name] = gets.chomp
+    # ... pareil pour chaque attribut
+    return info
+  end
+end
+```
+
+---
+
+## Controller (Le messager)
+
+* Fait le lien entre le **Model** et la **View** 
+
+--
+
+* Une **View** est stupide, elle ne sait pas aller chercher la donnée dans les models. C'est le role du controller : faire la navette entre la view et le model.
+
+* Un **Controller** est un point d'entrée pour une partie de votre application.
+
+--
+
+```ruby
+class RestaurantController
+  def initialize
+    @restaurants = RESTAURANTS
+    @view = RestaurantView.new
+  end
+
+  def index
+    @view.restaurants_index(@restaurants)
+  end
+  
+  def show(index)
+    @view.restaurant_show(@restaurants[index])
+  end
+```
+```ruby`
+  def new
+    restaurant_params = @view.restaurant_new
+    @restaurants << Restaurant.new(restaurant_params)
+  end
+end
+```
+
+---
+
+## Lier le tout
+
+De façon général, une application possède de **nombreux** models, views et controllers mais un **point d'entrée unique** (un fichier initial par exemple).
+
+--
+
+## Le router
+
+Dans le point d'entrée, on va demander à l'utilisateur ce qu'il souhaite faire (afficher la liste des restaurants, en créer un nouveau...), et le **router** (ou dispatcher) va s'occuper d'appeler le bon **Controller**.
+
+--
+
+## Résumé
+
+```
+Lancer le fichier 
+  -> Choix utilisateur 
+  -> Router 
+  -> Appel du controller pertinent 
+  -> Appel des models pertinents 
+  -> Passage des models a la view correspondante 
+  -> Affichage par la view 
+```

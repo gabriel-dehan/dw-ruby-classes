@@ -91,6 +91,73 @@ time.strftime("On the %d of %b at %I:%M %p")
 
 ---
 
+## File 
+
+Lire des fichiers JSON, YAML, CSV ?
+
+--
+
+### Ouvrir un fichier
+
+Avec la méthode `#open`
+
+```ruby
+file = File.open("chemin/vers/monfichier.txt", "r") # Ouvre le fichier en mode de lecture
+content = file.read # Extrait le contenu du fichier
+puts content # => Affiche le contenu du fichier
+```
+
+--
+
+### JSON
+
+```ruby
+require 'json'
+
+file = File.open("chemin/vers/monfichier.json", "r")
+content = file.read
+hash = JSON.parse(content)
+
+puts hash
+```
+
+--
+
+### YAML
+
+```ruby
+require 'yaml'
+
+hash = YAML.load_file("chemin/vers/monfichier.yml")
+puts hash
+```
+
+--
+
+### CSV
+
+```ruby
+require 'csv'
+
+CSV.read("chemin/vers/monfichier.csv")
+# OU
+CSV.foreach("chemin/vers/monfichier.csv") do |line|
+  # Faire quelque chose avec la ligne courante
+end
+```
+
+--
+
+### Ecrire dans un fichier
+
+```ruby
+content = "..."
+file = File.open("chemin/vers/monfichier.txt", "w")
+file.write(content)
+```
+
+---
+
 ## Expressions régulières (Regexp)
 
 --
