@@ -234,31 +234,12 @@ Cette méthode fonctionne aussi bien avec les `Hash` que les `Array`.
 
 Lisez les documentations, relisez la consigne, re-relisez la consigne, re-re-relisez la consigne et d'utiliser `irb` et `awesome_print` pour vous aider dans le développement.
 
-## Aller plus loin
-(Plus loin, plus de points o/)
-
-Vous pouvez améliorer l'apparence de l'interface en utilisant la gem [`colorize`](https://github.com/fazibear/colorize)
-
-```
-$ gem install colorize
-```
-
-```ruby
-require 'colorize'
-
-puts "unestring".orange # Affichera une string de couleur orange dans le terminal
-```
-
-La documentation est assez simple donc allez y faire un tour.
-
 ## .
 ## .
 ## .
 ## .
 
-## Je n'y arrive vraiment pas
+## Je suis bloqué !
 
-**Essayez à partir de la page blanche avant, ne vous précipitez pas sur ce squelette.**
-
-En dernier recours, si vous êtes bloqué, en train de paniquer et que vous ne savez vraiment pas comment vous lancer dans l'exercice, vous pouvez vous aider du squelette suivant:
+Si vous êtes bloqué, ou que vous ne savez vraiment pas comment vous lancer dans l'exercice, vous pouvez vous aider du squelette suivant:
 [https://gist.github.com/gabriel-dehan/e16915a34a737c006150](https://gist.github.com/gabriel-dehan/e16915a34a737c006150)

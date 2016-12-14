@@ -1,0 +1,111 @@
+---
+title: Jour 4 - HTTP
+reveal:
+  theme: solarized
+  slideNumber: true
+  progress: true
+  mouseWheel: true
+  transition: linear
+---
+
+# HTTP
+
+**H**yper **T**ext **T**ransfer **P**rotocol
+
+---
+
+## Qu'est ce que c'est ?
+
+* \- Un protocole de transfert de ressources
+* \- Une ressource = un fichier (HTML, CSS, JS, image...)
+* \- Basé sur un système de Requête/Réponse
+* \- Entre un Client et un Serveur (HTTP)
+
+--
+
+Vous l'utilisez **tous** les jours.
+
+--
+
+### C'est le protocole du Web
+
+{% img 'http_get.png' alt:'HTTP GET' class:'logo gh' %}
+
+---
+
+## Composantes d'une requête
+
+* \- Une **URL**, ou *Uniform Resource Locator*
+* \- Un **Verb**, *GET*, *POST*, *PATCH*/*PUT* ou *DELETE*
+* \- Des **Headers**, ou *Entêtes* de la requêtes
+* \- Un **Body**, qui contient des données à envoyer
+
+---
+
+## Composantes d'une réponse
+
+* \- Des **Headers**
+* \- Un **Body**, contenant la réponse
+
+---
+
+## Types de requêtes (Verbs)
+
+--
+
+### GET
+
+* *Requête*: On demande une ressource
+
+* *Réponse*: La ressoure demandée ou une erreur HTTP (404, 500...)
+
+* *Exemple*: On va sur la page http://www.google.com dans le navigateur ou on clique sur un lien sur le Web
+
+--
+
+### POST
+
+* *Requête*: On envoie de la donnée (dans le *body*) dans le but de créer une ressource
+
+* *Réponse*: La ressource créée, une erreur HTTP ou une redirection vers une nouvelle page
+
+* *Exemple*: On soumet un formulaire (e.g: pour créer un nouvel utilisateur)
+
+--
+
+### PATCH / PUT
+
+* *Requête*: On envoie de la donnée (dans le *body*) dans le but de modifier une ressource
+
+* *Réponse*: La ressource modifiée, une erreur HTTP ou une redirection vers une nouvelle page
+
+* *Exemple*: On soumet un formulaire (e.g: pour modifier un article de blog)
+
+--
+
+### DELETE
+
+* *Requête*: On demande au serveur de supprimer une ressource spécifique
+
+* *Réponse*: Rien du tout, une erreur HTTP ou une redirection vers une nouvelle page
+
+* *Exemple*: On clique sur un lien (e.g: pour supprimer une publication facebook)
+
+---
+
+## HTTP et Ruby
+
+[Net/HTTP](https://ruby-doc.org/stdlib-2.3.3/libdoc/net/http/rdoc/Net/HTTP.html)
+
+```ruby
+require 'net/http'
+
+uri = URI('http://www.google.com/search')
+uri.query = URI.encode_www_form({ :q => 'Mizuna' })
+
+response = Net::HTTP.get_response(uri)
+
+if response.kind_of?(Net::HTTPSuccess)
+  puts response.body # => HTML Page as a string
+end
+```

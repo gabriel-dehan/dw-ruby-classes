@@ -1,3 +1,4 @@
+
 ---
 title: Jour 3 - L'oranger (Orienté Objet)
 layout: exercise
@@ -45,7 +46,6 @@ end
 - Jusqu'à ses 50 ans an, un arbre ne peut pas mourir:
 - Après ses 50 ans, la probabilité qu'à l'arbre de mourir augmente d'année en année. 
 - Si un arbre survi jusqu'à cent ans, il meurt le jour de ses 100 ans.
-- A tree will produce 100 fruits a year once it is strictly older than 5 years.
 - A partir de ses 10 ans, un arbre produit des fruits : 200 fruits par ans.
 - Un arbre arrête de produire des fruits à ses 25 ans.
 - On doit pouvoir cueillir des fruits depuis l'arbre (1 par 1)
